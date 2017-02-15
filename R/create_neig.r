@@ -11,6 +11,7 @@ create.neig <- function(
   verbose = FALSE
 ){
 
+  require(FNN)
   cat("create dataframe")
   coords <- as.data.frame(coordinates(data.set))
   names(coords) <- c("x","y")
