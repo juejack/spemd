@@ -2,7 +2,7 @@
 #' @aliases  create.neig
 #' @author Pierre Roudier
 #' @description Initiates the neighbourhood relationships between the points in the processed data set
-#' @import sp spdep
+#' @import sp spdep, FNN
 create.neig <- function(
   data.set,
   # gridded.data,
@@ -10,9 +10,6 @@ create.neig <- function(
   duplicate='remove',
   verbose = FALSE
 ){
-
-  require(FNN)
-  cat("create dataframe")
   coords <- as.data.frame(coordinates(data.set))
   names(coords) <- c("x","y")
 
