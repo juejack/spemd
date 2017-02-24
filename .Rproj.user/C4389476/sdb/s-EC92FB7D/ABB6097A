@@ -1,0 +1,18 @@
+{
+    "contents" : "# Empirical decomposition\ntini1 <- proc.time()\nfor (i_point in (1:1328200)) {\na <- 1\nb <- list(1:10)\n}\ntfin1 <- proc.time()\ntfin1 - tini1\n\n\nneig <- create.neig(\n  rxy_na,\n  nb.nn = 4,\n  duplicate = 'remove',\n  verbose = verbose\n)\n\ncandidat_p <- vector(mode='integer',length = neig$n)\ncandidat_n <- vector(mode='integer',length = neig$n)\n\n\n\nneig$value <- rxy_na@data$z\n\n# Initialisation\nk <- 1\n\n\na <- function(i) { list(1) } \nb <- function(i) { list(1,2) }\nll <- sapply(seq(3), a, simplfy=\"list\")\nmm <- sapply(seq(3), b) \n\n# Optimisation possible\n# datat.table\n# parallelisation\n# library(doMC) # Use doMC package\n# registerDoMC() # Determine number of cores to use, default = #cores/2\ni_point=1\n#tini1 <- proc.time()\n# For each point of the triangulation object\nfor (i_point in (1:neig$n)) {\n  #candidat <- 0\n  #amplitude.max <- 0\n  voisins <- neig$neig[[i_point]]\n  #diff neig$value[i_point] - neig$value[voisins]\n  candidat_p[i_point] <- list((neig$value[i_point] - neig$value[voisins])>0)\n  candidat_n[i_point] <- list(-1*((neig$value[i_point] - neig$value[voisins])<0))\n  \n  amplitude.max[i_point] <- list(neig$value[i_point] - neig$value[voisins])\n  #k <- k + length(voisins)\n}\n\n\ncandidat_n <- unlist(lapply(candidat_n, sum))\ncandidat_p <- unlist(lapply(candidat_p, sum))\namplitude.max <- unlist(lapply(amplitude.max, function(x) max(abs(x))))\n\nn_neig <- unlist(lapply(neig$neig,length))\nabs_amplitude <- abs(amplitude.max)\nneig$is.minima[which(( abs_amplitude >= thresh.extrema) & (candidat_n == -1*n_neig))] <- TRUE\nneig$is.maxima[which(((abs_amplitude  >= thresh.extrema) & (candidat_p == n_neig)))] <- TRUE\n\n\nn.extrema <- length(which(neig$is.minima)) + length(which(neig$is.maxima))\ncat(paste('\\t\\t\\tFound ',n.extrema,\n          ' extrema points (',length(which(neig$is.minima)), ' minima, ',\n          length(which(neig$is.maxima)),' maxima)\\n',sep=''))\n\n\n",
+    "created" : 1487213804740.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "1048900871",
+    "id" : "ABB6097A",
+    "lastKnownWriteTime" : 7521971700038852973,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

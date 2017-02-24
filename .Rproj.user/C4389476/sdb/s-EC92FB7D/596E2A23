@@ -1,0 +1,18 @@
+{
+    "contents" : "# library\nlibrary(raster)\nlibrary(spemd)\n\n\n# set options and et args from the command line\noptions(warn = 0)\nargs <- commandArgs(trailingOnly = TRUE)\n\n\n\nif(args[1] == '-help' || length(args) == 0){\n\n  print(\"\n\n        == Description ==\n\n        Ce programme permet d'appliquer la méthode empirical decomposition mode\n        à un raster fournit par l'utilisateur;\n\n        Pour utiliser ce programme vous devez avoir le logiciel R prealablement installe\n        et avoir intialise le programme comme variable environnement.\n\n\n        ================\n\n\n        == Parametres entree ==\n\n        # -rst       : char. a position file obtained from RTKlib (ex. file.pos)\n\n\n        ===================\n\n        == return ==\n\n        # A raster in outPath or inPath (if the previous is not set)\n        ===================\n\n\n        == Exemple ==\n\n        # R_Script cmd_spemd.R  l7.tif\n\n        ===================\n\n        \\n\n\n        \")\n\n}else if(length(args) == 1){\n  cat('Default parameter used ...\\n')\n  rst_in <- basename(args[1])\n  inPath <- dirname(args[1])\n  rst_name <- unlist(strsplit(x = rst_in, split = \"\\\\.\"))[1]\n  ext <- unlist(strsplit(x = rst_in, split = \"\\\\.\"))[2]\n\n  if(!exists(\"outPath\")){\n    outPath <- inPath\n  }\n  rst_out <- paste0(outPath,'/',rst_name, '_imf1.', ext)\n\n}\n\n\n# read raster\nr <- raster(rst_in)\n\n# create sp object\nrxy <- as.data.frame(xyFromCell(r, 1:ncell(r)))\nrxy$z <- r[]\nrxy_na <- na.omit(rxy)\ncoordinates(rxy_na) <- ~x+y\ngridded(rxy_na) <- TRUE\n\n# Empirical decomposition\ntini1 <- proc.time()\nres.ncp <- spEMD(rxy_na, zcol = \"z\",\n                 method = \"splines\",\n                 n.imf.max = 1,\n                 thresh.extrema = 0.1,\n                 verbose = TRUE,\n                 nb.nn = 5,\n                 save_neig = FALSE)\ntfin1 <- proc.time()\ntfin1 - tini1\n\n# save raster\nwriteRaster(raster(res.ncp['imf1']),filename = rst_out)\ncat('---- spEMD is done.')\n",
+    "created" : 1487124916206.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3827614475",
+    "id" : "596E2A23",
+    "lastKnownWriteTime" : 1487137507,
+    "path" : "~/Script/R/spemd2/spemd/inDev/cmd_spemd.r",
+    "project_path" : "inDev/cmd_spemd.r",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

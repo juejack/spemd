@@ -1,0 +1,17 @@
+{
+    "contents" : "#' @title extract.extrema\n#' @aliases  extract.etxrema\n#' @author Pierre Roudier\n#' @description Explicitely returns a list with the tri objects of the extrema\n#'\nextract.extrema <- function(\n  tri.obj,\n  n.extrema.min=1 # Number of extrema beyond which the data is monotone\n  ){\n\n  if (!any(class(tri.obj) != 'extrema')) stop('plot.tri.extrema needs a tri and extrema object')\n\n  extrema <- NULL\n  i.min <- which(tri.obj$is.minima)\n  i.max <- which(tri.obj$is.maxima)\n  nb.min <- length(i.min)\n  nb.max <- length(i.max)\n\n  if ((nb.min >= n.extrema.min) && (nb.max >= n.extrema.min)) {\n    monotone <- FALSE\n    pop.min <- data.frame(cbind(tri.obj$x[i.min],tri.obj$y[i.min],tri.obj$value[i.min]))\n    pop.max <- data.frame(cbind(tri.obj$x[i.max],tri.obj$y[i.max],tri.obj$value[i.max]))\n    names(pop.min)[1] <- names(pop.max)[1] <- 'x'\n    names(pop.min)[2] <- names(pop.max)[2] <- 'y'\n    names(pop.min)[3] <- names(pop.max)[3] <- 'value'\n    extrema$min <- pop.min\n    extrema$max <- pop.max\n  } else {\n    monotone <- TRUE\n  }\n\n  return(list(extrema=extrema,nb.min=nb.min,nb.max=nb.max,monotone=monotone))\n}\n",
+    "created" : 1487131352019.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3488050448",
+    "id" : "BCCCA49F",
+    "lastKnownWriteTime" : 1487123611,
+    "path" : "~/Script/R/spemd2/spemd/R/extract_extrema.r",
+    "project_path" : "R/extract_extrema.r",
+    "properties" : {
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
