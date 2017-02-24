@@ -46,7 +46,7 @@
 #'
 #' @include create_neig.r extrema_irr.r extract_extrema.r mean_enveloppe.r
 #'
-#' @import sp
+#' @import sp, FNN, spdep, raster
 #' @export
 spEMD <- function(
   # DATA

@@ -2,7 +2,7 @@
 #' @aliases  create.neig
 #' @author Pierre Roudier
 #' @description Initiates the neighbourhood relationships between the points in the processed data set
-#' @import sp spdep
+#' @import sp spdep, FNN
 create.neig <- function(
   data.set,
   # gridded.data,
@@ -10,19 +10,26 @@ create.neig <- function(
   duplicate='remove',
   verbose = FALSE
 ){
-
   coords <- as.data.frame(coordinates(data.set))
   names(coords) <- c("x","y")
 
   # if (TRUE) {
-    #   if (gridded.data){
+  #   if (gridded.data){
 
 
   # Finding nearest neighbours
-  data.set.nn <- knearneigh(as.matrix(coords),k=nb.nn,longlat=FALSE)
-  # Converting to nb object
-  data.set.nb <- knn2nb(data.set.nn)
+  #  original code
+  #### data.set.nn <- knearneigh(as.matrix(coords),k=nb.nn,longlat=FALSE)
+  #### Converting to nb object
+  #### data.set.nb <- knn2nb(data.set.nn)
 
+  # Converting to nb object
+  kn <-  knn.index(coords, k=nb.nn)
+  knnObj <- list(nn=kn, np = nrow(coords), k = nb.nn, dimension = 2, x = coords[,1:2] )
+  class(knnObj) <- "knn"
+
+  # calculate neighboor
+  data.set.nb <- knn2nb(knnObj)
   neig <- list(NULL)
   neig$x <- coords[,1]
   neig$y <- coords[,2]
