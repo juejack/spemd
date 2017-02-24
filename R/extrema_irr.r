@@ -41,16 +41,13 @@ extrema.irr <- function(
   neig$is.minima <- vector(mode='logical', length = neig$n)
   neig$is.maxima <- vector(mode='logical', length = neig$n)
 
-  # vectorize condition
+  # vectorizing plus or minus condition
   candidat_p <- vector(mode='list',length = neig$n)
   candidat_n <- vector(mode='list',length = neig$n)
   amplitude.max <- vector(mode='integer',length = neig$n)
 
   # Adding the value attribute
   neig$value <- data.set[[zcol]]
-
-  #neig <- data.table(neig)
-
 
   # Initialisation
   k <- 1
@@ -60,24 +57,19 @@ extrema.irr <- function(
   # parallelisation
   # library(doMC) # Use doMC package
   # registerDoMC() # Determine number of cores to use, default = #cores/2
-  i_point=1
-  #tini1 <- proc.time()
-  # For each point of the triangulation object
-  for (i_point in (1:neig$n)) {
-    #candidat <- 0
-    #amplitude.max <- 0
-    voisins <- neig$neig[[i_point]]
-    #diff neig$value[i_point] - neig$value[voisins]
-    candidat_p[i_point] <- (neig$value[i_point] - neig$value[voisins])>0
-    candidat_n[i_point] <- (neig$value[i_point] - neig$value[voisins])<0
 
+    # For each point of the triangulation object
+  for (i_point in (1:neig$n)) {
+    voisins <- neig$neig[[i_point]]
+    #candidat_p[i_point] <- (neig$value[i_point] - neig$value[voisins])>0
+    #candidat_n[i_point] <- (neig$value[i_point] - neig$value[voisins])<0
     amplitude.max[i_point] <- list(neig$value[i_point] - neig$value[voisins])
-    #k <- k + length(voisins)
   }
 
+
   # not memory safe for bug dataset
-  #candidat_n <- lapply(candidat_n, function(x) x<0)
-  #candidat_p <- lapply(candidat_p, function(x) x>0)
+  candidat_n <- lapply(amplitude.max, function(x) x<0)
+  candidat_p <- lapply(amplitude.max, function(x) x>0)
 
   candidat_n <- -1*unlist(lapply(candidat_n, sum))
   candidat_p <- unlist(lapply(candidat_p, sum))
