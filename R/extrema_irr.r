@@ -75,6 +75,7 @@ extrema.irr <- function(
     #k <- k + length(voisins)
   }
 
+  # not memory safe for bug dataset
   #candidat_n <- lapply(candidat_n, function(x) x<0)
   #candidat_p <- lapply(candidat_p, function(x) x>0)
 
