@@ -6,7 +6,7 @@ library(MBA)
 library(spdep)
 library(FNN)
 
-rst <- "/home/jds/Temp/clip/n45_w074_clip2.tif"
+rst <- "/home/jds/Temp/clip/n45_w074_clip3.tif"
 wd <- "/home/jds/Documents/Data/Altimetrie/srtm"
 
 files <- list.files(path = wd , pattern = "1arc_v3.tif",full.names = TRUE)
@@ -36,7 +36,7 @@ coordinates(rxy_na) <- ~x+y
 gridded(rxy_na) <- TRUE
 
 
-Rprof("profiling.out",line.profiling = TRUE, memory.profiling = TRUE)
+#Rprof("profiling.out",line.profiling = TRUE, memory.profiling = TRUE)
 ### Your code ###
 
 
@@ -52,7 +52,7 @@ res.ncp <- spEMD(rxy_na, zcol = "z",
 tfin1 <- proc.time()
 tfin1 - tini1
 #Rprof()
-summaryRprof("profiling.out", lines="show",memory = "both")
+#summaryRprof("profiling.out", lines="show",memory = "both")
 
 # save raster
 writeRaster(raster(res.ncp['imf1']),filename = rst_out)
