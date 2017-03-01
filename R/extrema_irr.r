@@ -48,7 +48,8 @@ extrema.irr <- function(
 
   # Adding the value attribute
   neig$value <- data.set[[zcol]]
-
+  data.set[[zcol]] <- NULL
+  gc()
   # Initialisation
   k <- 1
 
@@ -65,7 +66,8 @@ extrema.irr <- function(
     #candidat_n[i_point] <- (neig$value[i_point] - neig$value[voisins])<0
     amplitude.max[i_point] <- list(neig$value[i_point] - neig$value[voisins])
   }
-
+  voisins <- NULL
+  gc()
 
   # not memory safe for bug dataset
   candidat_n <- lapply(amplitude.max, function(x) x<0)
@@ -75,10 +77,10 @@ extrema.irr <- function(
   candidat_p <- unlist(lapply(candidat_p, sum))
   amplitude.max <- unlist(lapply(amplitude.max, function(x) max(abs(x))))
 
-  n_neig <- unlist(lapply(neig$neig,length))
-  abs_amplitude <- abs(amplitude.max)
-  neig$is.minima[which(( abs_amplitude >= thresh.extrema) & (candidat_n == -1*n_neig))] <- TRUE
-  neig$is.maxima[which(((abs_amplitude  >= thresh.extrema) & (candidat_p == n_neig)))] <- TRUE
+  n_neig <- nb.nn#unlist(lapply(neig$neig,length))
+  amplitude.max <- abs(amplitude.max)
+  neig$is.minima[which(( amplitude.max >= thresh.extrema) & (candidat_n == -1*n_neig))] <- TRUE
+  neig$is.maxima[which(((amplitude.max  >= thresh.extrema) & (candidat_p == n_neig)))] <- TRUE
 
 
   n.extrema <- length(which(neig$is.minima)) + length(which(neig$is.maxima))
@@ -88,6 +90,7 @@ extrema.irr <- function(
 
 
   class(neig) <- c(class(neig),"extrema")
+  gc()
 
   return(neig)
 }

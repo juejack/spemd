@@ -36,7 +36,7 @@ coordinates(rxy_na) <- ~x+y
 gridded(rxy_na) <- TRUE
 
 
-Rprof("profiling.out",line.profiling = TRUE)
+Rprof("profiling.out",line.profiling = TRUE, memory.profiling = TRUE)
 ### Your code ###
 
 
@@ -51,8 +51,8 @@ res.ncp <- spEMD(rxy_na, zcol = "z",
                  save_neig = FALSE)
 tfin1 <- proc.time()
 tfin1 - tini1
-Rprof()
-summaryRprof("profiling.out", lines="show")
+#Rprof()
+summaryRprof("profiling.out", lines="show",memory = "both")
 
 # save raster
 writeRaster(raster(res.ncp['imf1']),filename = rst_out)

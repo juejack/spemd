@@ -77,6 +77,6 @@ create.neig <- function(
   # }
 
   class(neig) <- c(class(neig),"neig")
-
+  gc()
   return(neig)
 }
