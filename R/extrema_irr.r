@@ -61,7 +61,7 @@ extrema.irr <- function(
   voisins <- NULL
   gc()
 
-  # not memory safe for bug dataset
+  # not memory safe may bug
   candidat_n <- lapply(amplitude.max, function(x) x<0)
   candidat_p <- lapply(amplitude.max, function(x) x>0)
 
