@@ -24,7 +24,7 @@ create.neig <- function(
   #### data.set.nb <- knn2nb(data.set.nn)
 
   # Converting to nb object
-  kn <-  knn.index(coords, k=5)
+  kn <-  knn.index(coords, k=nb.nn)
   knnObj <- list(nn=kn, np = nrow(coords), k = 5, dimension = 2, x = coords[,1:2] )
   class(knnObj) <- "knn"
 
