@@ -80,7 +80,11 @@ res.ncp <- spEMD(rxy_na, zcol = "z",
                  n.imf.max = 1,
                  thresh.extrema = 0.1,
                  verbose = TRUE,
+<<<<<<< HEAD
+                 nb.nn = 5,
+=======
                  nb.nn = 6,
+>>>>>>> ffbd6c8811a64357348de53253bb7bb4adcc0f50
                  save_neig = FALSE)
 tfin1 <- proc.time()
 tfin1 - tini1

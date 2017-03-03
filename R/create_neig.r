@@ -1,3 +1,4 @@
+s
 #' @title create.neig
 #' @aliases  create.neig
 #' @author Pierre Roudier
@@ -25,7 +26,11 @@ create.neig <- function(
 
   # Converting to nb object
   kn <-  knn.index(coords, k=nb.nn)
+<<<<<<< HEAD
   knnObj <- list(nn=kn, np = nrow(coords), k = 5, dimension = 2, x = coords[,1:2] )
+=======
+  knnObj <- list(nn=kn, np = nrow(coords), k = nb.nn, dimension = 2, x = coords[,1:2] )
+>>>>>>> afd54a8d7ca123183debaeebad4b0deffaa07950
   class(knnObj) <- "knn"
 
   # calculate neighboor
@@ -77,6 +82,6 @@ create.neig <- function(
   # }
 
   class(neig) <- c(class(neig),"neig")
-
+  gc()
   return(neig)
 }

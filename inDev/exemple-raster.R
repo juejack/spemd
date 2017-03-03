@@ -6,7 +6,7 @@ library(MBA)
 library(spdep)
 library(FNN)
 
-rst <- "/home/jds/Documents/Data/Altimetrie/srtm/n45_w074_1arc_v3_z01_buffer_srtm_extract.tif"
+rst <- "/home/jds-linux/Documents/Data/Altimetrie/SRTM1/srtm_4326/n45_w073_1arc_v3_z01_buffer_srtm_extract.tif"
 rst_in <- basename(rst)
 inPath <- dirname(rst)
 rst_name <- unlist(strsplit(x = rst_in, split = "\\."))[1]

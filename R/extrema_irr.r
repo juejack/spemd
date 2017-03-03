@@ -4,14 +4,6 @@
 #' @description Finds regional extrema on a irregularly sampled data set
 #' @include create_neig.r
 # new implementation
-# user      system   elapsed
-# 38.4      0.004    38.409 # 300
-# 290.224   1.164    292.347 #1290
-# original implementation
-# user     system  elapsed
-# 39.044   0.016   39.131
-# 301.188   0.576 302.909
-# 3434.312   31.084    3701.952
 
 extrema.irr <- function(
   data.set,
