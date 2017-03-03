@@ -1,6 +1,6 @@
 #' @title extrema.irr
 #' @aliases  extrema.irr
-#' @author Pierre Roudier
+#' @author Pierre Roudier, modified by Jean-Daniel Sylvain (2017)
 #' @description Finds regional extrema on a irregularly sampled data set
 #' @include create_neig.r
 # new implementation

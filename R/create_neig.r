@@ -1,7 +1,6 @@
-s
 #' @title create.neig
 #' @aliases  create.neig
-#' @author Pierre Roudier
+#' @author Pierre Roudier, modified by Jean-Daniel Sylvain (2017)
 #' @description Initiates the neighbourhood relationships between the points in the processed data set
 #' @import sp spdep, FNN
 create.neig <- function(
@@ -26,11 +25,7 @@ create.neig <- function(
 
   # Converting to nb object
   kn <-  knn.index(coords, k=nb.nn)
-<<<<<<< HEAD
-  knnObj <- list(nn=kn, np = nrow(coords), k = 5, dimension = 2, x = coords[,1:2] )
-=======
   knnObj <- list(nn=kn, np = nrow(coords), k = nb.nn, dimension = 2, x = coords[,1:2] )
->>>>>>> afd54a8d7ca123183debaeebad4b0deffaa07950
   class(knnObj) <- "knn"
 
   # calculate neighboor
